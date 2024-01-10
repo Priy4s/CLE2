@@ -1,1 +1,1 @@
-
+<a class="button" href="reservationdate.php">Reserveren</a>
