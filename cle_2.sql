@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 10 jan 2024 om 11:57
+-- Gegenereerd op: 11 jan 2024 om 13:53
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
@@ -24,25 +24,51 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `admin_users`
+--
+
+CREATE TABLE `admin_users` (
+  `id` int(11) NOT NULL,
+  `admin_username` varchar(255) NOT NULL,
+  `admin_password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `admin_users`
+--
+
+INSERT INTO `admin_users` (`id`, `admin_username`, `admin_password`) VALUES
+(1, 'SenseChina_Admin', '$2y$10$pLCmcsPmvMJXLn8tsrDOfuJ498FgLk46LjvLn8i6.qTV1aA9c/BYO');
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `reservations`
 --
 
 CREATE TABLE `reservations` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
-  `datetime` datetime NOT NULL,
+  `date` date NOT NULL,
   `email` text NOT NULL,
   `phone` int(15) NOT NULL,
   `people` int(11) NOT NULL,
   `13_64` tinyint(4) NOT NULL,
   `65` tinyint(4) NOT NULL,
   `0_12` tinyint(4) NOT NULL,
-  `comment` varchar(255) NOT NULL
+  `comment` varchar(255) NOT NULL,
+  `time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexen voor geëxporteerde tabellen
 --
+
+--
+-- Indexen voor tabel `admin_users`
+--
+ALTER TABLE `admin_users`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexen voor tabel `reservations`
@@ -53,6 +79,12 @@ ALTER TABLE `reservations`
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
+
+--
+-- AUTO_INCREMENT voor een tabel `admin_users`
+--
+ALTER TABLE `admin_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT voor een tabel `reservations`
