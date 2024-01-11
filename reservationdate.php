@@ -11,6 +11,17 @@ if (isset($_POST['submit'])) {
         $errors['reservation_date'] = "Datum kan niet leeg zijn.";
     }
 
+    if (empty($_POST['desired_time'])) {
+        $errors['desired_time'] = "Selecteer een gewenste tijd.";
+    } else {
+        // Voer een aangepaste validatie uit voor de tijd (bijvoorbeeld: HH:MM-formaat)
+        $pattern = "/^(1[7-9]|20|21|22):([0-3][0,5])$/"; // Hier wordt gecontroleerd op 17:00 tot 22:30 in stappen van 30 minuten
+
+        if (!preg_match($pattern, $_POST['desired_time'])) {
+            $errors['desired_time'] = "Ongeldige tijdselectie.";
+        }
+    }
+
 
     if (empty($errors)) {
         header("Location: reservationform.php");
@@ -87,15 +98,29 @@ if (isset($_POST['submit'])) {
         </div>
 
         <div class="field">
-            <label class="label">Tijd (hardcode)</label>
+            <label class="label">Gewenste tijd</label>
             <div class="control">
-                <input class="input" type="date" name="reservation_date" value="">
+                <div class="select">
+                    <select name="desired_time">
+                        <option value="">--:--</option>
+                        <option value="17:00">17:00</option>
+                        <option value="17:30">17:30</option>
+                        <option value="18:00">18:00</option>
+                        <option value="18:30">18:30</option>
+                        <option value="19:00">19:00</option>
+                        <option value="19:30">19:30</option>
+                        <option value="20:00">20:00</option>
+                        <option value="20:30">20:30</option>
+                        <option value="21:00">21:00</option>
+                        <option value="21:30">21:30</option>
+                        <option value="22:00">22:00</option>
+                    </select>
+                </div>
+                <p class="help is-danger">
+                    <?= isset($errors['desired_time']) ? $errors['desired_time'] : '' ?>
+                </p>
             </div>
-            <p class="help is-danger">
-                <?= isset($errors['time']) ? $errors['time'] : '' ?>
-            </p>
         </div>
-
 
         <div class="field">
             <div class="control">

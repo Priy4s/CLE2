@@ -2,6 +2,7 @@
 
 $errors = [];
 
+
 ?>
 
 
@@ -64,7 +65,7 @@ $errors = [];
         </div>
     </form>
     <div>
-        <a class="button" href="index.php">Go back to the list</a>
+        <a class="button" href="index.php">Terug naar reserveren</a>
     </div>
 </div>
 </body>
