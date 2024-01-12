@@ -30,7 +30,6 @@ if (isset($_POST['submit'])) {
     } elseif (!is_numeric($_POST['phone']) || strlen($_POST['phone']) < 10 || strlen($_POST['phone']) > 13) {
     $errors['phone'] = "Ongeldig telefoonnummer";
 }
-}
 
 if (empty($errors)) {
     /** @var mysqli $db */
@@ -52,10 +51,13 @@ if (empty($errors)) {
                            VALUES ('$name', '$email', '$phone', '$amount' , '$comment', '$date', '$desired_time', '$age_group_65', '$age_group_13_64', '$age_group_0_12')";
     mysqli_query($db, $insertReservationQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $insertReservationQuery);
 
-//header("Location: index.php?");
+    mysqli_close($db);
+    header('Location: reservationconfirmation.php');
+    exit();
+
+}
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
