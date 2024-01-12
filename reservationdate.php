@@ -1,8 +1,20 @@
 <?php
 
 $errors = [];
+$postData = [];
+$postData['age_group_65'] = $_POST['age_group_65'] ?? '';
+$postData['age_group_13_64'] = $_POST['age_group_13_64'] ?? '';
+$postData['age_group_0_12'] = $_POST['age_group_0_12'] ?? '';
+$postData['reservation_date'] = $_POST['reservation_date'] ?? '';
+$postData['desired_time'] = $_POST['desired_time'] ?? '';
 
 if (isset($_POST['submit'])) {
+    $postData['age_group_65'] = $_POST['age_group_65'] ?? '';
+    $postData['age_group_13_64'] = $_POST['age_group_13_64'] ?? '';
+    $postData['age_group_0_12'] = $_POST['age_group_0_12'] ?? '';
+    $postData['reservation_date'] = $_POST['reservation_date'] ?? '';
+    $postData['desired_time'] = $_POST['desired_time'] ?? '';
+
     if (empty($_POST['age_group_65']) && empty($_POST['age_group_13_64']) && empty($_POST['age_group_0_12'])) {
         $errors['age_groups'] = "Selecteer minimaal één leeftijdsgroep.";
     }
@@ -18,7 +30,7 @@ if (isset($_POST['submit'])) {
         $pattern = "/^(1[7-9]|20|21|22):([0-3][0,5])$/"; // Hier wordt gecontroleerd op 17:00 tot 22:30 in stappen van 30 minuten
 
         if (!preg_match($pattern, $_POST['desired_time'])) {
-            $errors['desired_time'] = "Ongeldige tijdselectie.";
+            $errors['desired_time'] = "Kies een tijdstip.";
         }
     }
 
@@ -51,7 +63,7 @@ if (isset($_POST['submit'])) {
                 <div class="select">
                     <select name="age_group_65">
                         <?php for ($i = 0 ; $i <= 20; $i++): ?>
-                            <option value="<?= $i ?>"><?= $i ?></option>
+                            <option value="<?= $i ?>" <?= ($postData['age_group_65'] == $i) ? 'selected' : '' ?>><?= $i ?></option>
                         <?php endfor; ?>
                     </select>
                 </div>
@@ -64,7 +76,7 @@ if (isset($_POST['submit'])) {
                 <div class="select">
                     <select name="age_group_13_64">
                         <?php for ($i = 0 ; $i <= 20; $i++): ?>
-                            <option value="<?= $i ?>"><?= $i ?></option>
+                            <option value="<?= $i ?>" <?= ($postData['age_group_13_64'] == $i) ? 'selected' : '' ?>><?= $i ?></option>
                         <?php endfor; ?>
                     </select>
                 </div>
@@ -77,7 +89,7 @@ if (isset($_POST['submit'])) {
                 <div class="select">
                     <select name="age_group_0_12">
                         <?php for ($i = 0 ; $i <= 20; $i++): ?>
-                            <option value="<?= $i ?>"><?= $i ?></option>
+                            <option value="<?= $i ?>" <?= ($postData['age_group_0_12'] == $i) ? 'selected' : '' ?>><?= $i ?></option>
                         <?php endfor; ?>
                     </select>
                 </div>
@@ -88,9 +100,9 @@ if (isset($_POST['submit'])) {
         </div>
 
         <div class="field">
-            <label class="label">Datum</label>
+            <label class="label">Datum*</label>
             <div class="control">
-                <input class="input" type="date" name="reservation_date" value="">
+                <input class="input" type="date" name="reservation_date" value="<?= $postData['reservation_date'] ?>">
             </div>
             <p class="help is-danger">
                 <?= isset($errors['reservation_date']) ? $errors['reservation_date'] : '' ?>
@@ -98,22 +110,13 @@ if (isset($_POST['submit'])) {
         </div>
 
         <div class="field">
-            <label class="label">Gewenste tijd</label>
+            <label class="label">Gewenste tijd*</label>
             <div class="control">
                 <div class="select">
                     <select name="desired_time">
-                        <option value="">--:--</option>
-                        <option value="17:00">17:00</option>
-                        <option value="17:30">17:30</option>
-                        <option value="18:00">18:00</option>
-                        <option value="18:30">18:30</option>
-                        <option value="19:00">19:00</option>
-                        <option value="19:30">19:30</option>
-                        <option value="20:00">20:00</option>
-                        <option value="20:30">20:30</option>
-                        <option value="21:00">21:00</option>
-                        <option value="21:30">21:30</option>
-                        <option value="22:00">22:00</option>
+                        <?php foreach (['--:--', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'] as $time): ?>
+                            <option value="<?= $time ?>" <?= ($postData['desired_time'] == $time) ? 'selected' : '' ?>><?= $time ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <p class="help is-danger">
