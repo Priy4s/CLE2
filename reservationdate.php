@@ -1,4 +1,6 @@
 <?php
+// Start the session
+session_start();
 
 $errors = [];
 $postData = [];
@@ -36,6 +38,16 @@ if (isset($_POST['submit'])) {
 
 
     if (empty($errors)) {
+        $_SESSION['reservation_date'] = $_POST['reservation_date'];
+        $_SESSION['age_group_65'] = $_POST['age_group_65'];
+        $_SESSION['age_group_13_64'] = $_POST['age_group_13_64'];
+        $_SESSION['age_group_0_12'] = $_POST['age_group_0_12'];
+        $amount = $_POST['age_group_65'] + $_POST['age_group_13_64'] + $_POST['age_group_0_12'];
+        $_SESSION['amount'] = $amount;
+        //format time properly
+        $format_time = DateTime::createFromFormat('H:i', $_POST['desired_time']);
+        $sqlTime = $format_time->format('H:i:s');
+        $_SESSION['desired_time'] = $sqlTime;
         header("Location: reservationform.php");
         exit();
     }

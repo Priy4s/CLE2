@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $errors = [];
 $postData = [];
@@ -29,7 +30,29 @@ if (isset($_POST['submit'])) {
     } elseif (!is_numeric($_POST['phone']) || strlen($_POST['phone']) < 10 || strlen($_POST['phone']) > 13) {
     $errors['phone'] = "Ongeldig telefoonnummer";
 }
+}
 
+if (empty($errors)) {
+    /** @var mysqli $db */
+// Setup connection with database
+    require_once 'includes/database.php';
+    $name = mysqli_real_escape_string($db, $valName);
+    $email = mysqli_real_escape_string($db, $valEmail);
+    $phone = mysqli_real_escape_string($db, $valPhone);
+    $comment = mysqli_real_escape_string($db, $valComment);
+    $date = mysqli_real_escape_string($db, $_SESSION['reservation_date']);
+    $desired_time = mysqli_real_escape_string($db, $_SESSION['desired_time']);
+    $amount = mysqli_real_escape_string($db, $_SESSION['amount']);
+    $age_group_65 = mysqli_real_escape_string($db, $_SESSION['age_group_65']);
+    $age_group_13_64 = mysqli_real_escape_string($db, $_SESSION['age_group_13_64']);
+    $age_group_0_12 = mysqli_real_escape_string($db, $_SESSION['age_group_0_12']);
+
+
+    $insertReservationQuery = "INSERT INTO reservations (`name`, `email`, `phone`, `people`, `comment`, `date`, `time`, `65`, `13_64`, `0_12`  ) 
+                           VALUES ('$name', '$email', '$phone', '$amount' , '$comment', '$date', '$desired_time', '$age_group_65', '$age_group_13_64', '$age_group_0_12')";
+    mysqli_query($db, $insertReservationQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $insertReservationQuery);
+
+//header("Location: index.php?");
 }
 ?>
 
