@@ -10,7 +10,7 @@ if (isset($_SESSION['user_id'])) {
 
 if (isset($_POST['submit'])) {
     /** @var mysqli $db */
-    require_once "includes/database.php";
+    require_once "../includes/database.php";
 
     // Get form data
     $username = mysqli_escape_string($db, $_POST['username']);
