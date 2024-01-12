@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
 if (empty($errors)) {
     /** @var mysqli $db */
 // Setup connection with database
-    require_once 'includes/database.php';
+    require_once '../includes/database.php';
     $name = mysqli_real_escape_string($db, $valName);
     $email = mysqli_real_escape_string($db, $valEmail);
     $phone = mysqli_real_escape_string($db, $valPhone);
@@ -119,7 +119,7 @@ if (empty($errors)) {
         </div>
     </form>
     <div>
-        <a class="button" href="index.php">Terug naar reserveren</a>
+        <a class="button" href="../index.php">Terug naar reserveren</a>
     </div>
 </div>
 </body>

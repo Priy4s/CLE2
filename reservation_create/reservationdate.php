@@ -144,7 +144,7 @@ if (isset($_POST['submit'])) {
         </div>
     </form>
     <div>
-        <a class="button" href="index.php">Go back to the list </a>
+        <a class="button" href="../index.php">Go back to the list </a>
     </div>
 </div>
 </body>

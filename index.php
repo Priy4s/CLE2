@@ -72,7 +72,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-<a class="button" href="reservationdate.php">Reserveren</a>
+<a class="button" href="reservation_create/reservationdate.php">Reserveren</a>
 <a class="button" href="admin_page/index.php">Admin</a>
 </body>
 </html>
