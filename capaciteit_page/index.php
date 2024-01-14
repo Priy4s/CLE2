@@ -95,7 +95,7 @@ function getNameById($db, $id, $tableName, $columnName = 'name') {
             <td><?= isset($dayCapacity['date']) ? $dayCapacity['date'] : '' ?></td>
             <td><?= isset($dayCapacity['capacity']) ? $dayCapacity['capacity'] : '' ?></td>
             <td><?= isset($dayCapacity['people']) ? $dayCapacity['people'] : '' ?></td>
-            <td><a href="edit2.php?id=<?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?>">Edit</a></td>
+            <td><a href="edit.php?id=<?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?>">Edit</a></td>
         </tr>
         <?php
     }
