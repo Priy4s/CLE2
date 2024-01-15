@@ -62,12 +62,40 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="../style.css">
     <title>Resevering</title>
 </head>
 <body>
+<nav>
+    <div class="navbar">
+        <div>
+            <img src="../images/sense.png " alt="" class="navimg">
+        </div>
+        <div>
+            <a href="">MENU</a>
+            <a href="">TAKE-AWAY DELIVERY</a>
+            <a href="" class="selected">RESERVEREN</a>
+            <a href="">JARIG?</a>
+            <a href="">BIOSCOOPMENU</a>
+            <a href="">ZAALHUUR</a>
+            <a href="">PRIVACY DISCLAIMER</a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="jumbotron">
+        <h1 class="lead">Reserveren</h1>
+    </div>
+</main>
+<section class="form">
+    <div>
+        <p>Reserveer gemakkelijk via onderstaand formulier.
+            Voor reserveringen voor dezelfde avond, gelieve te bellen met ons restaurant op nummer 010 438 35 88.
+            Voor bijzondere verzoeken, stuur een mail naar info@senseofchina.nl.</p>
+    </div>
 <div class="container px-4">
-    <h1 class="title mt-4">Reserveer</h1>
+    <h1 class="reserveer">Reserveer</h1>
     <form method="post" action="">
         <div class="field">
             <label class="label">Aantal personen 65+</label>
@@ -138,14 +166,41 @@ if (isset($_POST['submit'])) {
         </div>
 
         <div class="field">
-            <div class="control">
+            <div class="button">
                 <button class="button is-primary" type="submit" name="submit">Ga verder met reserveren</button>
             </div>
         </div>
     </form>
     <div>
-        <a class="button" href="../index.php">Go back to the list </a>
+        <a class="reserveer" href="../index.php">Go back to the list </a>
     </div>
 </div>
+</section>
+
+<footer>
+    <div>
+        <h3>Openingstijden</h3>
+        <p>Dagelijks geopend van 16:30 - 22:00 uur</p>
+        <p>Maandag* &amp; Dinsdag GESLOTEN</p>
+        <p>*Feestdagen die op maandag vallen zijn wij geopend</p>
+        <h4>GRATIS PARKEREN. LET OP: Woensdag en Donderdag aangepast parkeren in verband met wekelijkse Marktdag
+        </h4>
+    </div>
+    <div>
+        <h3>Contact</h3>
+        <p>Middenbaan Noord 202, 3191 EL Hoogvliet Rotterdam</p>
+        <p>T. 010 438 35 88</p>
+    </div>
+    <div class="footernav">
+        <h3>Navigeer</h3>
+        <a href="">Menu</a>
+        <a href="">Take-Away Delivery</a>
+        <a href="">Reserveren</a>
+        <a href="">Jarig?</a>
+        <a href="">Bioscoopmenu</a>
+        <a href="">Zaalhuur</a>
+        <a href="">Privacy Disclaimer</a>
+    </div>
+</footer>
 </body>
 </html>

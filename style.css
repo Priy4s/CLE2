@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+nav {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    background-color: white;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    height: 5rem;
+    color: rgba(0, 0, 0, 0.9);
+    font-size: 0.875rem;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+
+}
+
+body {
+    margin: 0;
+}
+
+.jumbotron {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://www.senseofchina.nl/wp-content/uploads/2022/09/cropped-cropped-sensaofchina-scaled-1.jpg);
+    background-size: cover;
+    background-position: center center;
+    padding: 10rem 4rem;
+    border-radius: 0;
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    right: 0;
+    left: 0;
+}
+
+.jumbotron h1 {
+    font-size: 4.625rem;
+    line-height: 5rem;
+    color: white;
+    font-family: "PT Serif", serif;
+    font-weight: 400;
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar {
+    width: 100%;
+    margin-right: 10%;
+    margin-left: 10%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selected {
+    color: #f2b06cff;
+}
+
+nav a {
+    color: rgba(0, 0, 0, 0.9);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    display: block;
+    padding: 0.5rem 1rem;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+
+}
+
+nav div {
+    display: flex;
+}
+
+nav a:hover {
+    color: #f2b06cff;
+}
+
+nav img {
+    width: auto;
+    height: 3rem;
+}
+
+footer {
+    color: #717171;
+    background-color: #242424;
+    display: flex;
+    padding: 4rem 0;
+    justify-content: space-evenly;
+}
+
+footer h3 {
+    color: white;
+    font-family:"PT Serif", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+footer p {
+    font-family: sans-serif;
+}
+
+footer div {
+    position: relative;
+    width: 20%;
+    min-height: 1px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.footernav {
+    display: flex;
+    flex-direction: column;
+}
+
+.footernav a {
+    text-decoration: none;
+    color: #717171;
+    font-family: sans-serif;
+}
+
+.button {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 1rem;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.button:hover {
+    cursor: pointer;
+    color: #f2b06cff;
+    border-color: #959393;
+}
+
+.reserveer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form    {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 2px 2px;
+}
+div p {
+margin-left: 10%;
+    margin-right: 25%;
+}
+#medium {
+    width: 15rem;
+}
+
+#large  {
+    width: 25rem;
+    height: 5rem;
+}
+
+.conftext{
+    margin-left: 33%;
+    margin-right: 33%;
+    margin-top: 5rem;
+    margin-bottom: 10rem;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
