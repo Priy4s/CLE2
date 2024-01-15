@@ -3,7 +3,7 @@ session_start();
 
 //May I visit this page?
 if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+    header("Location: capacity_view.php");
     exit;
 }
 
@@ -48,7 +48,7 @@ mysqli_close($db);
             </p>
 
             <p class="level-item has-text-centered">
-                <a class="button is-light is-fullwidth" href="">Reservering maken</a>
+                <a class="button is-light is-fullwidth" href="../reservation_create/reservationform.php">Reservering maken</a>
             </p>
         </nav>
         <hr>
@@ -75,7 +75,7 @@ mysqli_close($db);
                     <td><?= htmlentities($reservations['email']) ?></td>
                     <td><?= htmlentities($reservations['phone']) ?></td>
                     <td><?= htmlentities($reservations['people']) ?></td>
-                    <td><a class="has-text-black" href="details.php?id=<?= $reservations['id'] ?>">Details</a></td>
+                    <td><a class="has-text-black" href="reservation_detail.php?id=<?= $reservations['id'] ?>">Details</a></td>
                     <td><a class="has-text-danger" href="delete.php?id=<?= $reservations['id'] ?>"><strong>Verwijderen</strong></a></td>
                 </tr>
             <?php } ?>

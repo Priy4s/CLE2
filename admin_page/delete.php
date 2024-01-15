@@ -10,7 +10,7 @@ $query = "DELETE FROM reservations WHERE id = $id";
 mysqli_query($db, $query);
 
 //Redirect to homepage after deletion & exit script
-header('Location: reservations.php');
+header('Location: reservations_view.php');
 ?>
 
 

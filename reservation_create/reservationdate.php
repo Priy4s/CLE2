@@ -23,6 +23,10 @@ if (isset($_POST['submit'])) {
 
     if ($_POST['reservation_date'] == '') {
         $errors['reservation_date'] = "Datum kan niet leeg zijn.";
+    } elseif (strtotime($_POST['reservation_date']) < strtotime(date('Y-m-d'))) {
+        $errors['reservation_date'] = "Geselecteerde datum mag niet in het verleden liggen.";
+    } elseif (strtotime($_POST['reservation_date']) == strtotime(date('Y-m-d'))) {
+        $errors['reservation_date'] = "Voor reservering op de huidige datum, neem telefonisch contact op.";
     }
 
     if (empty($_POST['desired_time'])) {
@@ -38,18 +42,41 @@ if (isset($_POST['submit'])) {
 
 
     if (empty($errors)) {
-        $_SESSION['reservation_date'] = $_POST['reservation_date'];
-        $_SESSION['age_group_65'] = $_POST['age_group_65'];
-        $_SESSION['age_group_13_64'] = $_POST['age_group_13_64'];
-        $_SESSION['age_group_0_12'] = $_POST['age_group_0_12'];
         $amount = $_POST['age_group_65'] + $_POST['age_group_13_64'] + $_POST['age_group_0_12'];
-        $_SESSION['amount'] = $amount;
-        //format time properly
-        $format_time = DateTime::createFromFormat('H:i', $_POST['desired_time']);
-        $sqlTime = $format_time->format('H:i:s');
-        $_SESSION['desired_time'] = $sqlTime;
-        header("Location: reservationform.php");
-        exit();
+
+        /** @var mysqli $db */
+        require_once '../includes/database.php';
+        //check if you add the $amount to 'people' in the day_capacities table it will not exceed 'capacity' if it does not, or if the date does not exist in the databse. Store the variables in session
+        // Retrieve existing capacity and people values
+
+        $date = mysqli_real_escape_string($db, $_POST['reservation_date']);
+        $capacityQuery = "SELECT capacity, people FROM day_capacities WHERE date = '$date'";
+        $result = mysqli_query($db, $capacityQuery);
+
+        if ($result && mysqli_num_rows($result) == 1) {
+            $row = mysqli_fetch_assoc($result);
+            $existingPeople = $row['people'];
+            $capacity = $row['capacity'];
+
+            // Check if adding new amount exceeds capacity
+            if ($existingPeople + $amount > $capacity) {
+                $errors['reservation_date'] = "Er zijn niet genoeg plekken op deze datum.";
+            }
+
+        }
+        if (empty($errors)) {
+            $_SESSION['reservation_date'] = htmlspecialchars($_POST['reservation_date']);
+            $_SESSION['age_group_65'] = $_POST['age_group_65'];
+            $_SESSION['age_group_13_64'] = $_POST['age_group_13_64'];
+            $_SESSION['age_group_0_12'] = $_POST['age_group_0_12'];
+            $_SESSION['amount'] = $amount;
+            //format time properly
+            $format_time = DateTime::createFromFormat('H:i', $_POST['desired_time']);
+            $sqlTime = $format_time->format('H:i:s');
+            $_SESSION['desired_time'] = $sqlTime;
+            header("Location: reservationform.php");
+            exit();
+        }
     }
 }
 
@@ -135,17 +162,17 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <p class="help is-danger">
-                <?= isset($errors['age_groups']) ? $errors['age_groups'] : '' ?>
+                <?= isset($errors['age_groups']) ? htmlspecialchars($errors['age_groups']) : '' ?>
             </p>
         </div>
 
         <div class="field">
             <label class="label">Datum*</label>
             <div class="control">
-                <input class="input" type="date" name="reservation_date" value="<?= $postData['reservation_date'] ?>">
+                <input class="input" type="date" name="reservation_date" value="<?= htmlspecialchars($postData['reservation_date']) ?>">
             </div>
             <p class="help is-danger">
-                <?= isset($errors['reservation_date']) ? $errors['reservation_date'] : '' ?>
+                <?= isset($errors['reservation_date']) ? htmlspecialchars($errors['reservation_date']) : '' ?>
             </p>
         </div>
 
@@ -160,7 +187,7 @@ if (isset($_POST['submit'])) {
                     </select>
                 </div>
                 <p class="help is-danger">
-                    <?= isset($errors['desired_time']) ? $errors['desired_time'] : '' ?>
+                    <?= isset($errors['desired_time']) ? htmlspecialchars($errors['desired_time']) : '' ?>
                 </p>
             </div>
         </div>

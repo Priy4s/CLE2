@@ -28,34 +28,53 @@ if (isset($_POST['submit'])) {
     } elseif (!is_numeric($_POST['phone'])) {
         $errors['phone'] = "Telefoonnummer moet bestaan uit nummers.";
     } elseif (!is_numeric($_POST['phone']) || strlen($_POST['phone']) < 10 || strlen($_POST['phone']) > 13) {
-    $errors['phone'] = "Ongeldig telefoonnummer";
-}
-
-if (empty($errors)) {
-    /** @var mysqli $db */
-// Setup connection with database
-    require_once '../includes/database.php';
-    $name = mysqli_real_escape_string($db, $valName);
-    $email = mysqli_real_escape_string($db, $valEmail);
-    $phone = mysqli_real_escape_string($db, $valPhone);
-    $comment = mysqli_real_escape_string($db, $valComment);
-    $date = mysqli_real_escape_string($db, $_SESSION['reservation_date']);
-    $desired_time = mysqli_real_escape_string($db, $_SESSION['desired_time']);
-    $amount = mysqli_real_escape_string($db, $_SESSION['amount']);
-    $age_group_65 = mysqli_real_escape_string($db, $_SESSION['age_group_65']);
-    $age_group_13_64 = mysqli_real_escape_string($db, $_SESSION['age_group_13_64']);
-    $age_group_0_12 = mysqli_real_escape_string($db, $_SESSION['age_group_0_12']);
+        $errors['phone'] = "Ongeldig telefoonnummer";
+    }
 
 
-    $insertReservationQuery = "INSERT INTO reservations (`name`, `email`, `phone`, `people`, `comment`, `date`, `time`, `65`, `13_64`, `0_12`  ) 
-                           VALUES ('$name', '$email', '$phone', '$amount' , '$comment', '$date', '$desired_time', '$age_group_65', '$age_group_13_64', '$age_group_0_12')";
-    mysqli_query($db, $insertReservationQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $insertReservationQuery);
+    if (empty($errors)) {
+        /** @var mysqli $db */
+        // Setup connection with database
+        require_once '../includes/database.php';
+        $name = mysqli_real_escape_string($db, $valName);
+        $email = mysqli_real_escape_string($db, $valEmail);
+        $phone = mysqli_real_escape_string($db, $valPhone);
+        $comment = mysqli_real_escape_string($db, $valComment);
+        $date = mysqli_real_escape_string($db, $_SESSION['reservation_date']);
+        $desired_time = mysqli_real_escape_string($db, $_SESSION['desired_time']);
+        $amount = mysqli_real_escape_string($db, $_SESSION['amount']);
+        $age_group_65 = mysqli_real_escape_string($db, $_SESSION['age_group_65']);
+        $age_group_13_64 = mysqli_real_escape_string($db, $_SESSION['age_group_13_64']);
+        $age_group_0_12 = mysqli_real_escape_string($db, $_SESSION['age_group_0_12']);
+        $capacity = 300;
 
-    mysqli_close($db);
-    header('Location: reservationconfirmation.php');
-    exit();
+        $insertReservationQuery = "INSERT INTO reservations (`name`, `email`, `phone`, `people`, `comment`, `date`, `time`, `65`, `13_64`, `0_12`) 
+                               VALUES ('$name', '$email', '$phone', '$amount' , '$comment', '$date', '$desired_time', '$age_group_65', '$age_group_13_64', '$age_group_0_12')";
+        mysqli_query($db, $insertReservationQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $insertReservationQuery);
 
-}
+        //niet beschikbare plekken aanpassen
+
+        $capacityQuery = "SELECT * FROM day_capacities WHERE date = '$date'";
+        $result = mysqli_query($db, $capacityQuery);
+
+        if (mysqli_num_rows($result) == 1) {
+            // datum bestaat al in capaciteit database
+            $row = mysqli_fetch_assoc($result);
+            $people = $row['people'];
+            $newPeopleValue = $people + $amount; // Adjust the value according to your logic
+
+            // Update the 'people' value in the day_capacities table
+            $updateCapacityQuery = "UPDATE day_capacities SET people = $newPeopleValue WHERE date = '$date'";
+            mysqli_query($db, $updateCapacityQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $updateCapacityQuery);
+        } else {
+            $newCapacityQuery = "INSERT INTO day_capacities (`date`, `capacity`, `people`) VALUES ('$date', '$capacity', '$amount')";
+            mysqli_query($db, $newCapacityQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $newCapacityQuery);
+        }
+
+        mysqli_close($db);
+        header('Location: reservationconfirmation.php');
+        exit();
+    }
 }
 ?>
 
@@ -97,43 +116,40 @@ if (empty($errors)) {
         <div class="field">
             <label class="label">Naam*</label>
             <div class="control">
-                <input class="input" id="medium" type="text" name="name" value="<?= $valName ?>">
+                <input class="input" id="medium" type="text" name="name" value="<?= htmlspecialchars($valName) ?>">
             </div>
             <p class="help is-danger">
-                <?= isset($errors['name']) ? $errors['name'] : '' ?>
+                <?= isset($errors['name']) ? htmlspecialchars($errors['name']) : '' ?>
             </p>
         </div>
         <div class="field">
             <label class="label">Email*</label>
             <div class="control">
-                <input class="input" id="medium" type="email" name="email" value="<?= $valEmail ?>">
+                <input class="input" id="medium" type="email" name="email" value="<?= htmlspecialchars($valEmail) ?>">
             </div>
             <p class="help is-danger">
-                <?= isset($errors['email']) ? $errors['email'] : '' ?>
+                <?= isset($errors['email']) ? htmlspecialchars($errors['email']) : '' ?>
             </p>
         </div>
         <div class="field">
             <label class="label">Telefoonnummer*</label>
             <div class="control">
-                <input class="input" id="medium" type="text" name="phone" value="<?= $valPhone ?>">
+                <input class="input" id="medium" type="text" name="phone" value="<?= htmlspecialchars($valPhone) ?>">
             </div>
             <p class="help is-danger">
-                <?= isset($errors['phone']) ? $errors['phone'] : '' ?>
+                <?= isset($errors['phone']) ? htmlspecialchars($errors['phone']) : '' ?>
             </p>
         </div>
 
         <div class="field">
             <label class="label">Opmerkingen</label>
             <div class="control">
-                <textarea class="textarea" id="large" name="comment" value="<?= $valName ?>" ?> </textarea>
+                <textarea class="textarea" id="large" name="comment"><?= htmlspecialchars($valComment) ?></textarea>
             </div>
             <p class="help is-danger">
-                <?= isset($errors['comment']) ? $errors['comment'] : '' ?>
+                <?= isset($errors['comment']) ? htmlspecialchars($errors['comment']) : '' ?>
             </p>
         </div>
-
-
-
 
         <div class="field">
             <div class="control">
@@ -155,22 +171,6 @@ if (empty($errors)) {
         <h4>GRATIS PARKEREN. LET OP: Woensdag en Donderdag aangepast parkeren in verband met wekelijkse Marktdag
         </h4>
     </div>
-    <div>
-        <h3>Contact</h3>
-        <p>Middenbaan Noord 202, 3191 EL Hoogvliet Rotterdam</p>
-        <p>T. 010 438 35 88</p>
-    </div>
-    <div class="footernav">
-        <h3>Navigeer</h3>
-        <a href="">Menu</a>
-        <a href="">Take-Away Delivery</a>
-        <a href="">Reserveren</a>
-        <a href="">Jarig?</a>
-        <a href="">Bioscoopmenu</a>
-        <a href="">Zaalhuur</a>
-        <a href="">Privacy Disclaimer</a>
-        <ul class="wp-container-1 wp-block-social-links alignleft"><li class="wp-social-link wp-social-link-facebook wp-block-social-link"><a href="https://www.facebook.com/senseofchina" class="wp-block-social-link-anchor"><svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z"></path></svg><span class="wp-block-social-link-label screen-reader-text">Facebook</span></a></li></ul>
-    </div>
-</footer>
+</div>
 </body>
 </html>
