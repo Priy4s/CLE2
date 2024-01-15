@@ -14,6 +14,6 @@
 </head>
 <body>
     <h1>Bedankt voor het reserveren!</h1>
-
+    <a class="button" href="index.php">Startpagina</a>
 </body>
 </html>

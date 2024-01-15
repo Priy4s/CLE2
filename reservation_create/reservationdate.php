@@ -23,7 +23,12 @@ if (isset($_POST['submit'])) {
 
     if ($_POST['reservation_date'] == '') {
         $errors['reservation_date'] = "Datum kan niet leeg zijn.";
+    } elseif (strtotime($_POST['reservation_date']) < strtotime(date('Y-m-d'))) {
+        $errors['reservation_date'] = "Geselecteerde datum mag niet in het verleden liggen.";
+    } elseif (strtotime($_POST['reservation_date']) == strtotime(date('Y-m-d'))) {
+        $errors['reservation_date'] = "Voor reservering op de huidige datum, neem telefonisch contact op.";
     }
+
 
     if (empty($_POST['desired_time'])) {
         $errors['desired_time'] = "Selecteer een gewenste tijd.";
@@ -61,7 +66,7 @@ if (isset($_POST['submit'])) {
 
         }
         if (empty($errors)) {
-            $_SESSION['reservation_date'] = $_POST['reservation_date'];
+            $_SESSION['reservation_date'] = htmlspecialchars($_POST['reservation_date']);
             $_SESSION['age_group_65'] = $_POST['age_group_65'];
             $_SESSION['age_group_13_64'] = $_POST['age_group_13_64'];
             $_SESSION['age_group_0_12'] = $_POST['age_group_0_12'];
@@ -77,8 +82,6 @@ if (isset($_POST['submit'])) {
 }
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -130,17 +133,17 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             <p class="help is-danger">
-                <?= isset($errors['age_groups']) ? $errors['age_groups'] : '' ?>
+                <?= isset($errors['age_groups']) ? htmlspecialchars($errors['age_groups']) : '' ?>
             </p>
         </div>
 
         <div class="field">
             <label class="label">Datum*</label>
             <div class="control">
-                <input class="input" type="date" name="reservation_date" value="<?= $postData['reservation_date'] ?>">
+                <input class="input" type="date" name="reservation_date" value="<?= htmlspecialchars($postData['reservation_date']) ?>">
             </div>
             <p class="help is-danger">
-                <?= isset($errors['reservation_date']) ? $errors['reservation_date'] : '' ?>
+                <?= isset($errors['reservation_date']) ? htmlspecialchars($errors['reservation_date']) : '' ?>
             </p>
         </div>
 
@@ -155,7 +158,7 @@ if (isset($_POST['submit'])) {
                     </select>
                 </div>
                 <p class="help is-danger">
-                    <?= isset($errors['desired_time']) ? $errors['desired_time'] : '' ?>
+                    <?= isset($errors['desired_time']) ? htmlspecialchars($errors['desired_time']) : '' ?>
                 </p>
             </div>
         </div>
