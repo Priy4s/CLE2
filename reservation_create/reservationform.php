@@ -31,6 +31,8 @@ if (isset($_POST['submit'])) {
     $errors['phone'] = "Ongeldig telefoonnummer";
 }
 
+
+
 if (empty($errors)) {
     /** @var mysqli $db */
 // Setup connection with database
@@ -45,11 +47,34 @@ if (empty($errors)) {
     $age_group_65 = mysqli_real_escape_string($db, $_SESSION['age_group_65']);
     $age_group_13_64 = mysqli_real_escape_string($db, $_SESSION['age_group_13_64']);
     $age_group_0_12 = mysqli_real_escape_string($db, $_SESSION['age_group_0_12']);
+    $capacity = 300;
 
 
-    $insertReservationQuery = "INSERT INTO reservations (`name`, `email`, `phone`, `people`, `comment`, `date`, `time`, `65`, `13_64`, `0_12`  ) 
+    $insertReservationQuery = "INSERT INTO reservations (`name`, `email`, `phone`, `people`, `comment`, `date`, `time`, `65`, `13_64`, `0_12`) 
                            VALUES ('$name', '$email', '$phone', '$amount' , '$comment', '$date', '$desired_time', '$age_group_65', '$age_group_13_64', '$age_group_0_12')";
     mysqli_query($db, $insertReservationQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $insertReservationQuery);
+
+    //niet beschikbare plekken aanpassen
+
+    $capacityQuery = "SELECT * FROM day_capacities WHERE date = '$date'";
+    $result = mysqli_query($db, $capacityQuery);
+
+    if (mysqli_num_rows($result) == 1) {
+        // datum bestaat al in capaciteit database
+        $row = mysqli_fetch_assoc($result);
+        $people = $row['people'];
+        $newPeopleValue = $people + $amount; // Adjust the value according to your logic
+
+        // Update the 'people' value in the day_capacities table
+        $updateCapacityQuery = "UPDATE day_capacities SET people = $newPeopleValue WHERE date = '$date'";
+        mysqli_query($db, $updateCapacityQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $updateCapacityQuery);
+    }
+    else {
+        $newCapacityQuery = "INSERT INTO day_capacities (`date`, `capacity`, `people`) VALUES ('$date', '$capacity', '$amount')";
+        mysqli_query($db, $newCapacityQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $newCapacityQuery);
+    }
+
+
 
     mysqli_close($db);
     header('Location: reservationconfirmation.php');
