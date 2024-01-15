@@ -12,6 +12,8 @@ $reservationId = mysqli_real_escape_string($db, $_GET['id']);
 // Edit Reservation
 if (isset($_POST['edit'])) {
     $newName = isset($_POST['new_name']) ? mysqli_real_escape_string($db, $_POST['new_name']) : '';
+    $newDate = isset($_POST['new_date']) ? mysqli_real_escape_string($db, $_POST['new_date']) : '';
+    $newTime = isset($_POST['new_time']) ? mysqli_real_escape_string($db, $_POST['new_time']) : '';
     $newEmail = isset($_POST['new_email']) ? mysqli_real_escape_string($db, $_POST['new_email']) : '';
     $newPhoneNr = isset($_POST['new_phoneNr']) ? mysqli_real_escape_string($db, $_POST['new_phoneNr']) : '';
     $newComment = isset($_POST['new_comment']) ? mysqli_real_escape_string($db, $_POST['new_comment']) : '';
