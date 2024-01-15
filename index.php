@@ -74,5 +74,6 @@ if (isset($_POST['submit'])) {
 <body>
 <a class="button" href="reservation_create/reservationdate.php">Reserveren</a>
 <a class="button" href="admin_page/index.php">Admin</a>
+<a class="button" href="capaciteit_page/index.php">Capaciteit</a>
 </body>
 </html>

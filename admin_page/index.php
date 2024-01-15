@@ -119,7 +119,7 @@ if (isset($_POST['submit'])) {
                         <div class="field">
                             <label class="label" for="password">Password</label>
                             <div class="control has-icons-left">
-                                <input class="input" id="password" placeholder="Password" type="text" name="password"/>
+                                <input class="input" id="password" placeholder="Password" type="password" name="password"/>
                                 <span class="icon is-small is-left"><i class="fa-solid fa-lock"></i></i></span>
                                 <span class="help is-danger">
                                             <?= $errors['password'] ?? '' ?>
