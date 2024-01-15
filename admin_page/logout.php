@@ -5,7 +5,7 @@ session_start();
 session_destroy();
 
 // Redirect to login page
-header('Location: capacity_view.php');
+header('Location: index.php');
 // Exit the code.
 exit;
 ?>

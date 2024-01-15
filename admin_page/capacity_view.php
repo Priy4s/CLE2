@@ -13,7 +13,14 @@ $database   = 'cle_2';
 $db = mysqli_connect($host, $username, $password, $database)
 or die('Error: '.mysqli_connect_error());
 
-$query = "SELECT * FROM day_capacities";
+//$query = "SELECT * FROM day_capacities";
+
+$query = "
+    SELECT c.id, c.capacity, r.date, SUM(r.people) as total_people
+    FROM cle_2.reservations r
+    JOIN cle_2.day_capacities c ON r.date = c.date
+    GROUP BY r.date
+";
 
 $result = mysqli_query($db, $query)
 or die('Error '.mysqli_error($db).' with query '.$query);
@@ -31,16 +38,6 @@ while($row = mysqli_fetch_assoc($result))
 //         Elke rij wordt aan de array 'daycapacities' toegevoegd.
     $dayCapacities[] = $row;
 }
-
-function getNameById($db, $id, $tableName, $columnName = 'name') {
-    $query = "SELECT $columnName FROM $tableName WHERE id = '$id'";
-    $result = mysqli_query($db, $query);
-    $row = mysqli_fetch_assoc($result);
-    return isset($row[$columnName]) ? $row[$columnName] : '';
-}
-
-// Debug statement
-// echo "User ID: " . $_SESSION['user'];
 
 ?>
 <!doctype html>
@@ -70,8 +67,6 @@ function getNameById($db, $id, $tableName, $columnName = 'name') {
     </style>
 </head>
 <body>
-<a href="index.php">Go Back</a>
-<a href="logout.php">Log-Out</a>
 <table>
     <thead>
     <tr>
@@ -91,7 +86,7 @@ function getNameById($db, $id, $tableName, $columnName = 'name') {
             <td><?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?></td>
             <td><?= isset($dayCapacity['date']) ? $dayCapacity['date'] : '' ?></td>
             <td><?= isset($dayCapacity['capacity']) ? $dayCapacity['capacity'] : '' ?></td>
-            <td><?= isset($dayCapacity['people']) ? $dayCapacity['people'] : '' ?></td>
+            <td><?= isset($dayCapacity['total_people']) ? $dayCapacity['total_people'] : '' ?></td>
             <td><a href="capacity_edit.php?id=<?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?>">Edit</a></td>
         </tr>
         <?php
