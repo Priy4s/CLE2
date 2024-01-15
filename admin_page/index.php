@@ -79,7 +79,7 @@ if (isset($_POST['submit'])) {
                 <div class="box is-max-desktop">
                     <nav class="level">
                         <div class="level-item has-text-centered">
-                            <a class="button is-light is-fullwidth" href="reservations.php">Reserveringen</a>
+                            <a class="button is-light is-fullwidth" href="reservations_view.php">Reserveringen</a>
                         </div>
 
                         <div class="level-item has-text-centered">
@@ -90,7 +90,18 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="level-item has-text-centered">
-                            <a class="button is-light is-fullwidth" href="logout.php">Logout</a>
+                            <a class="button is-light is-fullwidth" href="capacity_view.php">Capaciteit</a>
+                        </div>
+                    </nav>
+
+                    <hr>
+
+                    <br>
+
+                    <nav>
+
+                        <div class="level-item has-text-centered">
+                            <a class="button is-danger is-fullwidth" href="logout.php">Logout</a>
                         </div>
                     </nav>
                 </div>
@@ -119,7 +130,7 @@ if (isset($_POST['submit'])) {
                         <div class="field">
                             <label class="label" for="password">Password</label>
                             <div class="control has-icons-left">
-                                <input class="input" id="password" placeholder="Password" type="text" name="password"/>
+                                <input class="input" id="password" placeholder="Password" type="password" name="password"/>
                                 <span class="icon is-small is-left"><i class="fa-solid fa-lock"></i></i></span>
                                 <span class="help is-danger">
                                             <?= $errors['password'] ?? '' ?>
