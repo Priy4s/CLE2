@@ -92,24 +92,6 @@ mysqli_close($db);
             <form class="column is-6" action="capacity_edit.php?id=<?= $daycapacityId ?>" method="post"
                   onsubmit="return confirm('Are you sure you want to save changes?');">
 
-                <!-- Date -->
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label" for="date">Datum</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input class="input" id="date" type="date" name="new_date"
-                                       value="<?php echo isset($inputValues['new_date']) ? $inputValues['new_date'] : ''; ?>"/>
-                            </div>
-                            <p class="help is-danger">
-                                <?php echo isset($errorDate) ? $errorDate : ''; ?>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Capacity -->
                 <div class="field is-horizontal">
                     <div class="field-label is-normal">
