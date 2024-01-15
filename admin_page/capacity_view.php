@@ -70,6 +70,7 @@ function getNameById($db, $id, $tableName, $columnName = 'name') {
     </style>
 </head>
 <body>
+<a href="index.php">Go Back</a>
 <a href="logout.php">Log-Out</a>
 <table>
     <thead>
