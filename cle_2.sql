@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 11 jan 2024 om 13:53
+-- Gegenereerd op: 15 jan 2024 om 09:37
 -- Serverversie: 10.4.28-MariaDB
 -- PHP-versie: 8.2.4
 
@@ -43,6 +43,26 @@ INSERT INTO `admin_users` (`id`, `admin_username`, `admin_password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `day_capacities`
+--
+
+CREATE TABLE `day_capacities` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `date` date NOT NULL,
+  `capacity` bigint(20) UNSIGNED NOT NULL,
+  `people` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `day_capacities`
+--
+
+INSERT INTO `day_capacities` (`id`, `date`, `capacity`, `people`) VALUES
+(1, '2024-01-27', 300, 225);
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `reservations`
 --
 
@@ -68,6 +88,12 @@ CREATE TABLE `reservations` (
 -- Indexen voor tabel `admin_users`
 --
 ALTER TABLE `admin_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexen voor tabel `day_capacities`
+--
+ALTER TABLE `day_capacities`
   ADD PRIMARY KEY (`id`);
 
 --
