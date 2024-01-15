@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// Gegevens voor de connectie
+//         Gegevens voor de connectie
 $host       = 'localhost';
 $username   = 'root';
 $password   = '';
 $database   = 'cle_2';
 
-// Verbinding met de database en foutafhandeling. Als verbinding niet gelukt is, wordt
+//         Verbinding met de database en foutafhandeling. Als verbinding niet gelukt is, wordt
 //         "or die" uitgevoerd. Deze stopt de code en toont de
 //         foutmelding op het scherm
 $db = mysqli_connect($host, $username, $password, $database)
@@ -28,7 +28,7 @@ $dayCapacities = [];
 //         'false' terug en stopt de while loop.
 while($row = mysqli_fetch_assoc($result))
 {
-    // Elke rij wordt aan de array 'daycapacities' toegevoegd.
+//         Elke rij wordt aan de array 'daycapacities' toegevoegd.
     $dayCapacities[] = $row;
 }
 
@@ -38,10 +38,6 @@ function getNameById($db, $id, $tableName, $columnName = 'name') {
     $row = mysqli_fetch_assoc($result);
     return isset($row[$columnName]) ? $row[$columnName] : '';
 }
-
-// Sluit de verbinding met de db. Al het
-// resultaat zit in de variabele $daycapacities
-
 
 // Debug statement
 // echo "User ID: " . $_SESSION['user'];
@@ -87,8 +83,8 @@ function getNameById($db, $id, $tableName, $columnName = 'name') {
     </thead>
     <tbody>
     <?php
-    // $movies wordt doorlopen met een foreach loop en zo kunnen de onderdelen
-    // van een film getoond worden.
+    // $daycapacities wordt doorlopen met een foreach loop en zo kunnen de onderdelen
+    // getoond worden.
     foreach ($dayCapacities as $dayCapacity) { ?>
         <tr>
             <td><?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?></td>
