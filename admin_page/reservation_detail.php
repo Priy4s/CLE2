@@ -14,14 +14,16 @@ $customerId = mysqli_escape_string($db, $_GET['id']);
 $query = "SELECT * FROM reservations WHERE id = '$customerId'" ;
 $result = mysqli_query($db, $query) or die ('Error: ' . $query);
 
-//Loop through the result to create a custom array
-$reservation = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $reservation[] = $row;
+if (mysqli_num_rows($result) == 1) {
+    $reservation = mysqli_fetch_assoc($result);
+    // redirect when db returns no result
+} else {
+    header('Location: read.php');
+    exit;
 }
 
-
-
+//Close connection
+mysqli_close($db);
 ?>
 
 <!doctype html>
@@ -36,40 +38,90 @@ while ($row = mysqli_fetch_assoc($result)) {
     <title>Document</title>
 </head>
     <body>
-        <table class="table is-striped is-fullwidth">
-            <thead>
-                <tr>
-                    <th>Naam</th>
-                    <th>Datum</th>
-                    <th>Tijd</th>
-                    <th>Email</th>
-                    <th>Telefoon</th>
-                    <th>Aantal klanten</th>
-                    <th>0-12</th>
-                    <th>13-64</th>
-                    <th>65</th>
-                    <th>Comment</th>
-                    <th></th>
-                </tr>
-            </thead>
 
-            <tbody>
-                <?php foreach ($reservation as $index => $reservations) {?>
-                    <tr>
-                        <td><?= htmlentities($reservations['name']) ?></td>
-                        <td><?= htmlentities($reservations['date']) ?></td>
-                        <td><?= htmlentities($reservations['time']) ?></td>
-                        <td><?= htmlentities($reservations['email']) ?></td>
-                        <td><?= htmlentities($reservations['phone']) ?></td>
-                        <td><?= htmlentities($reservations['people']) ?></td>
-                        <td><?= htmlentities($reservations['0_12']) ?></td>
-                        <td><?= htmlentities($reservations['13_64']) ?></td>
-                        <td><?= htmlentities($reservations['65']) ?></td>
-                        <td><?= htmlentities($reservations['comment']) ?></td>
-                        <td><a class="has-text-black" href="reservation_edit.php?id=<?= $reservations['id'] ?>">Bewerken</a></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <section class="section">
+            <div class="container is-max-desktop">
+                    <div class="box">
+                        <section class="section">
+                            <div class="tile is-ancestor">
+                                <div class="tile is-4 is-vertical is-parent">
+                                    <div class="tile is-child box">
+                                        <p class="title">Klant gegevens</p>
+
+                                        <div class="icon-text">
+                                            <span class="icon has-text">
+                                                <i class="fa-solid fa-user"></i>
+                                            </span>
+                                            <span><?= htmlentities($reservation['name']) ?></span>
+                                        </div>
+
+                                        <div class="icon-text">
+                                            <span class="icon has-text">
+                                                <i class="fa-solid fa-envelope"></i>
+                                            </span>
+                                            <span><?= htmlentities($reservation['email']) ?></span>
+                                        </div>
+
+                                        <div class="icon-text">
+                                            <span class="icon has-text">
+                                                <i class="fa-solid fa-phone"></i>
+                                            </span>
+                                            <span><?= htmlentities($reservation['phone']) ?></span>
+                                        </div>
+
+                                        <div class="icon-text">
+                                            <span class="icon has-text">
+                                                <i class="fa-solid fa-user-group"></i>
+                                            </span>
+                                            <span><?= htmlentities($reservation['people']) ?></span>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="block">
+                                            <h5 class="title is-6">0-12 jaar</h5>
+                                            <h6 class="subtitle is-6"><?= htmlentities($reservation['0_12']) ?> personen</h6>
+                                        </div>
+
+                                       <div class="block">
+                                           <h5 class="title is-6">13-64 jaar</h5>
+                                           <h6 class="subtitle is-6"><?= htmlentities($reservation['13_64']) ?> personen</h6>
+                                       </div>
+
+                                        <div class="block">
+                                            <h5 class="title is-6">65+</h5>
+                                            <h6 class="subtitle is-6"><?= htmlentities($reservation['65']) ?> personen</h6>
+                                        </div>
+                                    </div>
+                                    <div class="tile is-child box">
+                                        <p class="title">Reservatie</p>
+                                        <p><?= htmlentities($reservation['date']) ?></p>
+                                        <p><?= htmlentities($reservation['time']) ?></p>
+                                    </div>
+                                </div>
+                                <div class="tile is-parent">
+                                    <div class="tile is-child box">
+                                        <p class="title">Opmerking</p>
+                                        <p><?= htmlentities($reservation['comment']) ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="level">
+                            <a class="button" href="reservations_view.php">
+                            <span class="icon is-small">
+                              <i class="fa-solid fa-angle-left"></i>
+                            </span>
+                            </a>
+
+                            <a class="button" href="reservation_edit.php?id=<?= $reservation['id'] ?>">
+                            <span class="icon is-small">
+                              <i class="fa-solid fa-pen-to-square"></i>
+                            </span>
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </section>
     </body>
 </html>

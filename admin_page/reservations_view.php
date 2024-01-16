@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-//May I visit this page?
-if (!isset($_SESSION['user_id'])) {
-    header("Location: capacity_view.php");
-    exit;
-}
-
 //Require DB settings with connection variable
 /** @var mysqli $db */
 require_once "../includes/database.php";
