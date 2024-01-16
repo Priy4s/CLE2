@@ -66,7 +66,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <td><?= htmlentities($reservations['13_64']) ?></td>
                         <td><?= htmlentities($reservations['65']) ?></td>
                         <td><?= htmlentities($reservations['comment']) ?></td>
-                        <td><a class="has-text-black" href="reservation_detail.php?id=<?= $reservations['id'] ?>">Bewerken</a></td>
+                        <td><a class="has-text-black" href="reservation_edit.php?id=<?= $reservations['id'] ?>">Bewerken</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

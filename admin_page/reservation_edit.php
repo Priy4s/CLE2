@@ -21,6 +21,8 @@ if (isset($_POST['edit'])) {
     // Perform the update query
     $updateQuery = "UPDATE reservations SET 
                     name = '$newName', 
+                    date = '$newDate',
+                    time = '$newTime',
                     email = '$newEmail', 
                     phonenr = '$newPhoneNr',
                     comment = '$newComment'
@@ -50,13 +52,6 @@ if (isset($_GET['id'])) {
 } else {
     // Redirects to the reservation list if no valid reservation ID is provided
     header('Location: reservation_view.php');
-    exit();
-}
-
-// Authentication check
-if (!isset($_SESSION['user'])) {
-    // Redirect to login page if user isn't logged in
-    header('Location: index.php');
     exit();
 }
 
@@ -204,7 +199,7 @@ mysqli_close($db);
 
             <form action="reservation_edit.php?id=<?= $reservationId ?>" method="post"
                   onsubmit="return confirm('Are you sure you want to delete this reservation?');">
-                <input type="hidden" name="daycapacity_id" value="<?= $reservationId ?>">
+                <input type="hidden" name="reservation_id" value="<?= $reservationId ?>">
             </form>
 
             <a class="button mt-4" href="../reservation_create/reservationform.php">&laquo; Go back to form</a>
