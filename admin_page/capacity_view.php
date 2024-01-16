@@ -47,6 +47,8 @@ while($row = mysqli_fetch_assoc($result))
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <title>Day Capacity List</title>
     <style>
         table {
@@ -67,33 +69,39 @@ while($row = mysqli_fetch_assoc($result))
     </style>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Datum</th>
-        <th>Capaciteit</th>
-        <th>Personen</th>
-        <th>Edit</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    // $daycapacities wordt doorlopen met een foreach loop en zo kunnen de onderdelen
-    // getoond worden.
-    foreach ($dayCapacities as $dayCapacity) { ?>
+    <p class="level-item has-text-centered title is-size-1">
+        Capaciteit
+    </p>
+    <table>
+        <thead>
         <tr>
-            <td><?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?></td>
-            <td><?= isset($dayCapacity['date']) ? $dayCapacity['date'] : '' ?></td>
-            <td><?= isset($dayCapacity['capacity']) ? $dayCapacity['capacity'] : '' ?></td>
-            <td><?= isset($dayCapacity['total_people']) ? $dayCapacity['total_people'] : '' ?></td>
-            <td><a href="capacity_edit.php?id=<?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?>">Edit</a></td>
+            <th>ID</th>
+            <th>Datum</th>
+            <th>Capaciteit</th>
+            <th>Personen</th>
+            <th>Edit</th>
         </tr>
+        </thead>
+        <tbody>
         <?php
-    }
-    mysqli_close($db);
-    ?>
-    </tbody>
-</table>
+        // $daycapacities wordt doorlopen met een foreach loop en zo kunnen de onderdelen
+        // getoond worden.
+        foreach ($dayCapacities as $dayCapacity) { ?>
+            <tr>
+                <td><?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?></td>
+                <td><?= isset($dayCapacity['date']) ? $dayCapacity['date'] : '' ?></td>
+                <td><?= isset($dayCapacity['capacity']) ? $dayCapacity['capacity'] : '' ?></td>
+                <td><?= isset($dayCapacity['total_people']) ? $dayCapacity['total_people'] : '' ?></td>
+                <td><a href="capacity_edit.php?id=<?= isset($dayCapacity['id']) ? $dayCapacity['id'] : '' ?>">Edit</a></td>
+            </tr>
+            <?php
+        }
+        mysqli_close($db);
+        ?>
+        </tbody>
+    </table>
+    <p class="level-item has-text-centered">
+        <a class="button is-danger is-fullwidth" href="index.php">Terug</a>
+    </p>
 </body>
 </html>
