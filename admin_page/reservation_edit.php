@@ -18,13 +18,17 @@ if (isset($_POST['edit'])) {
     $newPhoneNr = isset($_POST['new_phoneNr']) ? mysqli_real_escape_string($db, $_POST['new_phoneNr']) : '';
     $newComment = isset($_POST['new_comment']) ? mysqli_real_escape_string($db, $_POST['new_comment']) : '';
 
+    $format_time = DateTime::createFromFormat('H:i', $_POST['new_time']);
+    $sqlTime = $format_time->format('H:i:s');
+    $_SESSION['new_time'] = $sqlTime;
+
     // Perform the update query
     $updateQuery = "UPDATE reservations SET 
                     name = '$newName', 
                     date = '$newDate',
                     time = '$newTime',
                     email = '$newEmail', 
-                    phonenr = '$newPhoneNr',
+                    phone = '$newPhoneNr',
                     comment = '$newComment'
                     WHERE id = '$reservationId'";
     mysqli_query($db, $updateQuery);
@@ -117,18 +121,19 @@ mysqli_close($db);
                 <!-- Time -->
                 <div class="field is-horizontal">
                     <div class="field-label is-normal">
-                        <label class="label" for="date">Tijd</label>
+                        <label class="label" for="time">Tijd</label>
                     </div>
                     <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input class="input" id="time" type="time" name="new_time"
-                                       value="<?php echo isset($inputValues['new_time']) ? $inputValues['new_time'] : ''; ?>"/>
-                            </div>
-                            <p class="help is-danger">
-                                <?php echo isset($errorTime) ? $errorTime : ''; ?>
-                            </p>
+                        <div class="select">
+                            <select id="time" name="new_time">
+                                <?php foreach (['--:--', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'] as $time): ?>
+                                    <option value="<?= $time ?>" <?= ($reservation['time'] == $time) ? 'selected' : '' ?>><?= $time ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
+                        <p class="help is-danger">
+                            <?= isset($errors['new_time']) ? htmlspecialchars($errors['new_time']) : '' ?>
+                        </p>
                     </div>
                 </div>
 
@@ -176,8 +181,8 @@ mysqli_close($db);
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input class="textarea" id="comment" type="text" name="new_comment"
-                                       value="<?php echo isset($inputValues['new_comment']) ? $inputValues['new_comment'] : ''; ?>"/>
+                                <textarea class="textarea" id="comment" type="text" name="new_comment"
+                                       value="<?php echo isset($inputValues['new_comment']) ? $inputValues['new_comment'] : ''; ?>"></textarea>
                             </div>
                             <p class="help is-danger">
                                 <?php echo isset($errorComment) ? $errorComment : ''; ?>
@@ -200,6 +205,7 @@ mysqli_close($db);
             <form action="reservation_edit.php?id=<?= $reservationId ?>" method="post"
                   onsubmit="return confirm('Are you sure you want to delete this reservation?');">
                 <input type="hidden" name="reservation_id" value="<?= $reservationId ?>">
+                <button class="button is-danger" type="submit" name="delete">Delete Reservation</button>
             </form>
 
             <a class="button mt-4" href="../reservation_create/reservationform.php">&laquo; Go back to form</a>

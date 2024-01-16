@@ -171,6 +171,7 @@ if (isset($_POST['submit'])) {
         <h4>GRATIS PARKEREN. LET OP: Woensdag en Donderdag aangepast parkeren in verband met wekelijkse Marktdag
         </h4>
     </div>
+    </footer>
 </div>
 </body>
 </html>
