@@ -161,7 +161,7 @@ if (isset($_POST['submit'])) {
                     </select>
                 </div>
             </div>
-            <p class="help is-danger">
+            <p class="errors">
                 <?= isset($errors['age_groups']) ? htmlspecialchars($errors['age_groups']) : '' ?>
             </p>
         </div>
@@ -171,7 +171,7 @@ if (isset($_POST['submit'])) {
             <div class="control">
                 <input class="input" type="date" name="reservation_date" value="<?= htmlspecialchars($postData['reservation_date']) ?>">
             </div>
-            <p class="help is-danger">
+            <p class="errors">
                 <?= isset($errors['reservation_date']) ? htmlspecialchars($errors['reservation_date']) : '' ?>
             </p>
         </div>
@@ -186,7 +186,7 @@ if (isset($_POST['submit'])) {
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <p class="help is-danger">
+                <p class="errors">
                     <?= isset($errors['desired_time']) ? htmlspecialchars($errors['desired_time']) : '' ?>
                 </p>
             </div>

@@ -118,7 +118,7 @@ if (isset($_POST['submit'])) {
             <div class="control">
                 <input class="input" id="medium" type="text" name="name" value="<?= htmlspecialchars($valName) ?>">
             </div>
-            <p class="help is-danger">
+            <p class="errors">
                 <?= isset($errors['name']) ? htmlspecialchars($errors['name']) : '' ?>
             </p>
         </div>
@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
             <div class="control">
                 <input class="input" id="medium" type="email" name="email" value="<?= htmlspecialchars($valEmail) ?>">
             </div>
-            <p class="help is-danger">
+            <p class="errors">
                 <?= isset($errors['email']) ? htmlspecialchars($errors['email']) : '' ?>
             </p>
         </div>
@@ -136,7 +136,7 @@ if (isset($_POST['submit'])) {
             <div class="control">
                 <input class="input" id="medium" type="text" name="phone" value="<?= htmlspecialchars($valPhone) ?>">
             </div>
-            <p class="help is-danger">
+            <p class="errors">
                 <?= isset($errors['phone']) ? htmlspecialchars($errors['phone']) : '' ?>
             </p>
         </div>
@@ -146,7 +146,7 @@ if (isset($_POST['submit'])) {
             <div class="control">
                 <textarea class="textarea" id="large" name="comment"><?= htmlspecialchars($valComment) ?></textarea>
             </div>
-            <p class="help is-danger">
+            <p class="errors">
                 <?= isset($errors['comment']) ? htmlspecialchars($errors['comment']) : '' ?>
             </p>
         </div>
@@ -171,6 +171,7 @@ if (isset($_POST['submit'])) {
         <h4>GRATIS PARKEREN. LET OP: Woensdag en Donderdag aangepast parkeren in verband met wekelijkse Marktdag
         </h4>
     </div>
+</footer>
 </div>
 </body>
 </html>

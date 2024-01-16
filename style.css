@@ -184,3 +184,7 @@ margin-left: 10%;
     font-optical-sizing: auto;
     font-style: normal;
 }
+
+.errors {
+    color: red;
+}
