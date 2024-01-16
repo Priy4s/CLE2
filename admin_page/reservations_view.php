@@ -42,7 +42,7 @@ mysqli_close($db);
             </p>
 
             <p class="level-item has-text-centered">
-                <a class="button is-light is-fullwidth" href="../reservation_create/reservationform.php">Reservering maken</a>
+                <a class="button is-light is-fullwidth" href="../reservation_create/reservationdate.php">Reservering maken</a>
             </p>
         </nav>
         <hr>

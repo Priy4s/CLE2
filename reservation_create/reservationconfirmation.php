@@ -39,6 +39,7 @@
     <p class="conftext">Bedankt voor het reserveren! We sturen zo snel mogelijk een bevestiging via het opgegeven e-mail adres.
         Heeft U nog vragen of wijzigingen? Stuur ons dan een mail bij info@senseofchina.nl of bel ons op het nummer 010 438 35 88.</p>
 </div>
+<div><a class="reserveer" href="../index.php">Ga terug </a></div>
 <footer>
     <div>
         <h3>Openingstijden</h3>

@@ -199,7 +199,7 @@ if (isset($_POST['submit'])) {
         </div>
     </form>
     <div>
-        <a class="reserveer" href="../index.php">Go back to the list </a>
+        <a class="reserveer" href="../index.php">Ga terug </a>
     </div>
 </div>
 </section>
