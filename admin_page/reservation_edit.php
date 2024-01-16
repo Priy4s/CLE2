@@ -201,13 +201,6 @@ mysqli_close($db);
             </form>
 
             <hr>
-
-            <form action="reservation_edit.php?id=<?= $reservationId ?>" method="post"
-                  onsubmit="return confirm('Are you sure you want to delete this reservation?');">
-                <input type="hidden" name="reservation_id" value="<?= $reservationId ?>">
-                <button class="button is-danger" type="submit" name="delete">Delete Reservation</button>
-            </form>
-
             <a class="button mt-4" href="../reservation_create/reservationform.php">&laquo; Go back to form</a>
         </div>
     </section>
