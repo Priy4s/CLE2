@@ -2,6 +2,48 @@
 <?php
 session_start();
 
+//         Gegevens voor de connectie
+$host       = 'localhost';
+$username   = 'root';
+$password   = '';
+$database   = 'cle_2';
+
+//         Verbinding met de database en foutafhandeling. Als verbinding niet gelukt is, wordt
+//         "or die" uitgevoerd. Deze stopt de code en toont de
+//         foutmelding op het scherm
+$db = mysqli_connect($host, $username, $password, $database)
+or die('Error: '.mysqli_connect_error());
+
+//$query = "SELECT * FROM day_capacities";
+
+// Get today's date
+$tomorrow = date("Y-m-d", strtotime("+1 day"));
+
+$query = "
+SELECT r.date, c.capacity, SUM(r.people) as total_people
+FROM cle_2.reservations r
+JOIN cle_2.day_capacities c ON r.date = c.date
+WHERE r.date = '$tomorrow'
+GROUP BY r.date;
+";
+
+$result = mysqli_query($db, $query)
+or die('Error '.mysqli_error($db).' with query '.$query);
+
+//         Er wordt een nieuwe array gemaakt waarin alle
+//         rijen uit de db komen. In dit geval is een rij een datum.
+$dayCapacities = [];
+//         mysqli_fetch_assoc haalt een rij uit de db en zet deze om naar
+//         een associatieve array. De namen van de index corresponderen met de
+//         kolomnamen (velden) van de tabel
+//         Als er geen rijen meer zijn in het resultaat geeft mysqli_fetch_assoc
+//         'false' terug en stopt de while loop.
+while($row = mysqli_fetch_assoc($result))
+{
+//         Elke rij wordt aan de array 'daycapacities' toegevoegd.
+    $dayCapacities[] = $row;
+}
+
 $login = false;
 // Is user logged in?
 if (isset($_SESSION['user_id'])) {
@@ -103,8 +145,34 @@ if (isset($_POST['submit'])) {
                         <div class="level-item has-text-centered">
                             <a class="button is-danger is-fullwidth" href="logout.php">Logout</a>
                         </div>
+
                     </nav>
+
                 </div>
+
+                <section class="columns is-centered">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="has-text-centered">Personen</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        // $daycapacities wordt doorlopen met een foreach loop en zo kunnen de onderdelen
+//                        // getoond worden.
+                        foreach ($dayCapacities as $dayCapacity) { ?>
+                            <tr>
+                                <td>Vandaag <?= isset($dayCapacity['total_people']) ? $dayCapacity['total_people'] : '' ?>/<?= isset($dayCapacity['capacity']) ? $dayCapacity['capacity'] : '' ?></td>
+                            </tr>
+                            <?php
+                        }
+                        mysqli_close($db);
+                        ?>
+                        </tbody>
+                    </table>
+                </section>
+
             </section>
         </div>
     </section>
