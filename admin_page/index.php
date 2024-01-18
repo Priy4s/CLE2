@@ -145,33 +145,36 @@ if (isset($_POST['submit'])) {
                         <div class="level-item has-text-centered">
                             <a class="button is-danger is-fullwidth" href="logout.php">Logout</a>
                         </div>
-
+                        <section>
+                                <p>‎ </p>
+                        </section>
+                        <section class="columns is-centered">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th class="has-text-centered">Personen</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                // $daycapacities wordt doorlopen met een foreach loop en zo kunnen de onderdelen
+                                //                        // getoond worden.
+                                foreach ($dayCapacities as $dayCapacity) { ?>
+                                    <tr>
+                                        <td>Vandaag <?= isset($dayCapacity['total_people']) ? $dayCapacity['total_people'] : '' ?>/<?= isset($dayCapacity['capacity']) ? $dayCapacity['capacity'] : '' ?></td>
+                                    </tr>
+                                    <?php
+                                }
+                                mysqli_close($db);
+                                ?>
+                                </tbody>
+                            </table>
+                        </section>
                     </nav>
 
                 </div>
 
-                <section class="columns is-centered">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th class="has-text-centered">Personen</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        // $daycapacities wordt doorlopen met een foreach loop en zo kunnen de onderdelen
-//                        // getoond worden.
-                        foreach ($dayCapacities as $dayCapacity) { ?>
-                            <tr>
-                                <td>Vandaag <?= isset($dayCapacity['total_people']) ? $dayCapacity['total_people'] : '' ?>/<?= isset($dayCapacity['capacity']) ? $dayCapacity['capacity'] : '' ?></td>
-                            </tr>
-                            <?php
-                        }
-                        mysqli_close($db);
-                        ?>
-                        </tbody>
-                    </table>
-                </section>
+
 
             </section>
         </div>
