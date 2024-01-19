@@ -25,7 +25,8 @@ if (isset($_POST['submit'])) {
         $errors['reservation_date'] = "Datum kan niet leeg zijn.";
     } elseif (strtotime($_POST['reservation_date']) < strtotime(date('Y-m-d'))) {
         $errors['reservation_date'] = "Geselecteerde datum mag niet in het verleden liggen.";
-    } elseif (strtotime($_POST['reservation_date']) == strtotime(date('Y-m-d'))) {
+    }
+    elseif (strtotime($_POST['reservation_date']) == strtotime(date('Y-m-d'))) {
         $errors['reservation_date'] = "Voor reservering op de huidige datum, neem telefonisch contact op.";
     }
 

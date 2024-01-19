@@ -2,22 +2,13 @@
 <?php
 session_start();
 
-//         Gegevens voor de connectie
-$host       = 'localhost';
-$username   = 'root';
-$password   = '';
-$database   = 'cle_2';
-
-//         Verbinding met de database en foutafhandeling. Als verbinding niet gelukt is, wordt
-//         "or die" uitgevoerd. Deze stopt de code en toont de
-//         foutmelding op het scherm
-$db = mysqli_connect($host, $username, $password, $database)
-or die('Error: '.mysqli_connect_error());
+/** @var mysqli $db */
+require_once '../includes/database.php';
 
 //$query = "SELECT * FROM day_capacities";
 
 // Get today's date
-$tomorrow = date("Y-m-d", strtotime("+1 day"));
+$tomorrow = date("Y-m-d");
 
 $query = "
 SELECT r.date, c.capacity, SUM(r.people) as total_people
@@ -97,6 +88,7 @@ if (isset($_POST['submit'])) {
             //error incorrect log in
             $errors['loginFailed'] = 'Wrong credentials.';
         }
+
     }
 }
 ?>
