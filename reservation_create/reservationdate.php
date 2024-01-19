@@ -169,12 +169,22 @@ if (isset($_POST['submit'])) {
         <div class="field">
             <label class="label">Datum*</label>
             <div class="control">
-                <input class="input" type="date" name="reservation_date" value="<?= htmlspecialchars($postData['reservation_date']) ?>">
+                <input class="input" type="date" name="reservation_date" value="<?= htmlspecialchars($postData['reservation_date']) ?>" min="<?= date('Y-m-d') ?>">
             </div>
             <p class="errors">
                 <?= isset($errors['reservation_date']) ? htmlspecialchars($errors['reservation_date']) : '' ?>
             </p>
         </div>
+
+
+        <style>
+            .hidden-date-input {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+                visibility: hidden;
+            }
+        </style>
 
         <div class="field">
             <label class="label">Gewenste tijd*</label>
@@ -229,5 +239,6 @@ if (isset($_POST['submit'])) {
         <a href="">Privacy Disclaimer</a>
     </div>
 </footer>
+
 </body>
 </html>
