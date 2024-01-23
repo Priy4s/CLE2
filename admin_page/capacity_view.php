@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once "../includes/authenticate.php";
+
 /** @var mysqli $db */
 require_once '../includes/database.php';
 
@@ -8,8 +10,8 @@ require_once '../includes/database.php';
 
 $query = "
     SELECT c.id, c.capacity, r.date, SUM(r.people) as total_people
-    FROM cle_2.reservations r
-    JOIN cle_2.day_capacities c ON r.date = c.date
+    FROM prj_2023_2024_ressys_t6.reservations r
+    JOIN prj_2023_2024_ressys_t6.day_capacities c ON r.date = c.date
     GROUP BY r.date
 ";
 

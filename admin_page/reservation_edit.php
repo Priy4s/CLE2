@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once "../includes/authenticate.php";
+
 $host = 'localhost';
 $username = 'root';
 $password = '';

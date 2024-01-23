@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once "../includes/authenticate.php";
+
 /** @var $db */
 require_once "../includes/database.php";
 

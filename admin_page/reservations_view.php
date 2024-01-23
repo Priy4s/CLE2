@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once "../includes/authenticate.php";
+
 //Require DB settings with connection variable
 /** @var mysqli $db */
 require_once "../includes/database.php";

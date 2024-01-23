@@ -12,8 +12,8 @@ $tomorrow = date("Y-m-d");
 
 $query = "
 SELECT r.date, c.capacity, SUM(r.people) as total_people
-FROM cle_2.reservations r
-JOIN cle_2.day_capacities c ON r.date = c.date
+FROM reservations r
+JOIN day_capacities c ON r.date = c.date
 WHERE r.date = '$tomorrow'
 GROUP BY r.date;
 ";
@@ -24,7 +24,7 @@ or die('Error '.mysqli_error($db).' with query '.$query);
 //         Er wordt een nieuwe array gemaakt waarin alle
 //         rijen uit de db komen. In dit geval is een rij een datum.
 $dayCapacities = [];
-//         mysqli_fetch_assoc haalt een rij uit de db en zet deze om naar
+//         mysqlitl/_fetch_assoc haalt een rij uit de db en zet deze om naar
 //         een associatieve array. De namen van de index corresponderen met de
 //         kolomnamen (velden) van de tabel
 //         Als er geen rijen meer zijn in het resultaat geeft mysqli_fetch_assoc
@@ -66,6 +66,7 @@ if (isset($_POST['submit'])) {
 
         // check if the user exists
         if (mysqli_num_rows($result) == 1) {
+
             // Get user data from result
             $user = mysqli_fetch_assoc($result);
 
