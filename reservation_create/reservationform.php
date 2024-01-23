@@ -162,6 +162,7 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 </section>
+<footer>
     <div>
         <h3>Openingstijden</h3>
         <p>Dagelijks geopend van 16:30 - 22:00 uur</p>
