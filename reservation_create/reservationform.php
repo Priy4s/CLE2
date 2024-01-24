@@ -87,6 +87,7 @@ if (isset($_POST['submit'])) {
     <title>Resevering</title>
 </head>
 <body>
+<body>
 <nav>
     <div class="navbar">
         <div>
@@ -161,31 +162,31 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 </section>
-<footer>
-    <div>
-        <h3>Openingstijden</h3>
-        <p>Dagelijks geopend van 16:30 - 22:00 uur</p>
-        <p>Maandag* &amp; Dinsdag GESLOTEN</p>
-        <p>*Feestdagen die op maandag vallen zijn wij geopend</p>
-        <h4>GRATIS PARKEREN. LET OP: Woensdag en Donderdag aangepast parkeren in verband met wekelijkse Marktdag
-        </h4>
-    </div>
-    <div>
-        <h3>Contact</h3>
-        <p>Middenbaan Noord 202, 3191 EL Hoogvliet Rotterdam</p>
-        <p>T. 010 438 35 88</p>
-    </div>
-    <div class="footernav">
-        <h3>Navigeer</h3>
-        <a href="">Menu</a>
-        <a href="">Take-Away Delivery</a>
-        <a href="">Reserveren</a>
-        <a href="">Jarig?</a>
-        <a href="">Bioscoopmenu</a>
-        <a href="">Zaalhuur</a>
-        <a href="">Privacy Disclaimer</a>
-    </div>
-</footer>
+    <footer>
+        <div>
+            <h3>Openingstijden</h3>
+            <p>Dagelijks geopend van 16:30 - 22:00 uur</p>
+            <p>Maandag* &amp; Dinsdag GESLOTEN</p>
+            <p>*Feestdagen die op maandag vallen zijn wij geopend</p>
+            <h4>GRATIS PARKEREN. LET OP: Woensdag en Donderdag aangepast parkeren in verband met wekelijkse Marktdag
+            </h4>
+        </div>
+        <div>
+            <h3>Contact</h3>
+            <p>Middenbaan Noord 202, 3191 EL Hoogvliet Rotterdam</p>
+            <p>T. 010 438 35 88</p>
+        </div>
+        <div class="footernav">
+            <h3>Navigeer</h3>
+            <a href="">Menu</a>
+            <a href="">Take-Away Delivery</a>
+            <a href="">Reserveren</a>
+            <a href="">Jarig?</a>
+            <a href="">Bioscoopmenu</a>
+            <a href="">Zaalhuur</a>
+            <a href="">Privacy Disclaimer</a>
+        </div>
+    </footer>
 </div>
 </body>
 </html>

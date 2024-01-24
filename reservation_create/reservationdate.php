@@ -117,11 +117,13 @@ if (isset($_POST['submit'])) {
     </div>
 </main>
 <section class="form">
-    <div>
-        <p>Reserveer gemakkelijk via onderstaand formulier.
-            Voor reserveringen voor dezelfde avond, gelieve te bellen met ons restaurant op nummer 010 438 35 88.
-            Voor bijzondere verzoeken, stuur een mail naar info@senseofchina.nl.</p>
-    </div>
+        <p>
+            Reserveer gemakkelijk via onderstaand formulier.
+            Voor reserveringen voor dezelfde avond, gelieve te bellen met ons restaurant op nummer <strong>010 438 35 88</strong>.
+        </p>
+        <p>
+            Voor bijzondere verzoeken, stuur een mail naar <strong>info@senseofchina.nl</strong>.
+        </p>
 <div class="container px-4">
     <h1 class="reserveer">Reserveer</h1>
     <form method="post" action="">

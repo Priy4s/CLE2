@@ -185,6 +185,10 @@ margin-left: 10%;
     font-style: normal;
 }
 
+.centertext {
+    text-align: center;
+}
+
 .errors {
     color: red;
 }
