@@ -2,7 +2,6 @@
 // Start the session
 session_start();
 
-//als de is form ingevuld, stop var terug
 $errors = [];
 $postData = [];
 $postData['age_group_65'] = $_POST['age_group_65'] ?? '';
@@ -18,7 +17,6 @@ if (isset($_POST['submit'])) {
     $postData['reservation_date'] = $_POST['reservation_date'] ?? '';
     $postData['desired_time'] = $_POST['desired_time'] ?? '';
 
-    //errors
     if (empty($_POST['age_group_65']) && empty($_POST['age_group_13_64']) && empty($_POST['age_group_0_12'])) {
         $errors['age_groups'] = "Selecteer minimaal één leeftijdsgroep.";
     }
@@ -49,8 +47,9 @@ if (isset($_POST['submit'])) {
 
         /** @var mysqli $db */
         require_once '../includes/database.php';
+        //check if you add the $amount to 'people' in the day_capacities table it will not exceed 'capacity' if it does not, or if the date does not exist in the databse. Store the variables in session
+        // Retrieve existing capacity and people values
 
-        //tegen gaan van sql injecties
         $date = mysqli_real_escape_string($db, $_POST['reservation_date']);
         $capacityQuery = "SELECT capacity, people FROM day_capacities WHERE date = '$date'";
         $result = mysqli_query($db, $capacityQuery);
@@ -60,24 +59,23 @@ if (isset($_POST['submit'])) {
             $existingPeople = $row['people'];
             $capacity = $row['capacity'];
 
-            // Check of nieuwe aantal over de capicity gaat
+            // Check if adding new amount exceeds capacity
             if ($existingPeople + $amount > $capacity) {
                 $errors['reservation_date'] = "Er zijn niet genoeg plekken op deze datum.";
             }
 
         }
         if (empty($errors)) {
-            //store info in een session
             $_SESSION['reservation_date'] = htmlspecialchars($_POST['reservation_date']);
             $_SESSION['age_group_65'] = $_POST['age_group_65'];
             $_SESSION['age_group_13_64'] = $_POST['age_group_13_64'];
             $_SESSION['age_group_0_12'] = $_POST['age_group_0_12'];
             $_SESSION['amount'] = $amount;
-            //format time goed
+            //format time properly
             $format_time = DateTime::createFromFormat('H:i', $_POST['desired_time']);
             $sqlTime = $format_time->format('H:i:s');
             $_SESSION['desired_time'] = $sqlTime;
-            header("Location: reservation_form.php");
+            header("Location: reservationform.php");
             exit();
         }
     }
@@ -242,8 +240,6 @@ if (isset($_POST['submit'])) {
         <a href="">Privacy Disclaimer</a>
     </div>
 </footer>
-
-
 
 </body>
 </html>

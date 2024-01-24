@@ -1,28 +1,5 @@
 <?php
 
-//werkt niet met andere emails
-$to = "1029788@hr.nl";
-$subject = "HTML email";
-
-$message = "
-<html>
-<head>
-<title>Bedankt voor het reserveren!</title>
-</head>
-<body>
-<h1>Bedankt voor het reserveren!</h1>
-<p>Uw reservering is succesvol opgeslagen!</p>
-</body>
-</html>
-";
-
-// Always set content-type when sending HTML email
-$headers = "MIME-Version: 1.0" . "\r\n";
-$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-$headers .= "From: 1029788 <1029788@hr.nl>" . "\r\n";
-
-mail($to, $subject, $message, $headers);
-
 ?>
 
 
