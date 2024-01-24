@@ -3,12 +3,8 @@ session_start();
 
 require_once "../includes/authenticate.php";
 
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'cle_2';
-
-$db = mysqli_connect($host, $username, $password, $database) or die('Error: ' . mysqli_connect_error());
+/** @var mysqli $db */
+require_once "../includes/database.php";
 
 $reservationId = mysqli_real_escape_string($db, $_GET['id']);
 
@@ -204,7 +200,7 @@ mysqli_close($db);
             </form>
 
             <hr>
-            <a class="button mt-4" href="../reservation_create/reservationform.php">&laquo; Go back to form</a>
+            <a class="button mt-4" href="../reservation_create/reservation_form.php">&laquo; Go back to form</a>
         </div>
     </section>
 </div>

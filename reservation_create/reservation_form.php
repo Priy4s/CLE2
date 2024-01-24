@@ -10,11 +10,13 @@ $valPhone = '';
 $valComment = '';
 
 if (isset($_POST['submit'])) {
+    //als field geinput word het terug gezet
     $valName = $_POST['name'] ?? '';
     $valEmail  = $_POST['email'] ?? '';
     $valPhone = $_POST['phone'] ?? '';
     $valComment = $_POST['comment'] ?? '';
 
+    //errors
     if ($_POST['name'] == '') {
         $errors['name'] = "Naam kan niet leeg zijn";
     }
@@ -34,18 +36,20 @@ if (isset($_POST['submit'])) {
 
     if (empty($errors)) {
         /** @var mysqli $db */
-        // Setup connection with database
         require_once '../includes/database.php';
+        //tegen sql injecties
         $name = mysqli_real_escape_string($db, $valName);
         $email = mysqli_real_escape_string($db, $valEmail);
         $phone = mysqli_real_escape_string($db, $valPhone);
         $comment = mysqli_real_escape_string($db, $valComment);
+        //haal variabelen van de vorige form uit de session
         $date = mysqli_real_escape_string($db, $_SESSION['reservation_date']);
         $desired_time = mysqli_real_escape_string($db, $_SESSION['desired_time']);
         $amount = mysqli_real_escape_string($db, $_SESSION['amount']);
         $age_group_65 = mysqli_real_escape_string($db, $_SESSION['age_group_65']);
         $age_group_13_64 = mysqli_real_escape_string($db, $_SESSION['age_group_13_64']);
         $age_group_0_12 = mysqli_real_escape_string($db, $_SESSION['age_group_0_12']);
+        //de vaste capacity
         $capacity = 300;
 
         $insertReservationQuery = "INSERT INTO reservations (`name`, `email`, `phone`, `people`, `comment`, `date`, `time`, `65`, `13_64`, `0_12`) 
@@ -63,16 +67,17 @@ if (isset($_POST['submit'])) {
             $people = $row['people'];
             $newPeopleValue = $people + $amount; // Adjust the value according to your logic
 
-            // Update the 'people' value in the day_capacities table
+            // Update 'people' in the day_capacities table
             $updateCapacityQuery = "UPDATE day_capacities SET people = $newPeopleValue WHERE date = '$date'";
             mysqli_query($db, $updateCapacityQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $updateCapacityQuery);
         } else {
+            //maak nieuwe capacity entry in de database
             $newCapacityQuery = "INSERT INTO day_capacities (`date`, `capacity`, `people`) VALUES ('$date', '$capacity', '$amount')";
             mysqli_query($db, $newCapacityQuery) or die('Error ' . mysqli_error($db) . ' with query ' . $newCapacityQuery);
         }
 
         mysqli_close($db);
-        header('Location: reservationconfirmation.php');
+        header('Location: reservation_confirmation.php');
         exit();
     }
 }
